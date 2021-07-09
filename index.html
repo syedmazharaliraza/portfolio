@@ -12,7 +12,7 @@
     <!-- Unicons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Syed Mazhar Ali Raza</title>
@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#projects" class="nav-link">
+                        <a href="#portfolio" class="nav-link">
                             <i class="uil uil-scenery nav-icon"></i> Projects
                         </a>
                     </li>
@@ -324,7 +324,7 @@
                                     Project Mentor
                                 </h3>
                                 <span class="qualification-subtitle">
-                                    Cross Winter of Code
+                                    Cross Winter of Code 2021
                                 </span>
                                 <div class="qualification-calender">
                                     <i class="uil uil-calendar-alt"></i>
@@ -350,7 +350,7 @@
                                     Open Source Mentee
                                 </h3>
                                 <span class="qualification-subtitle">
-                                    JGEC Winter of code 2k20
+                                    JGEC Winter of code 2020
                                 </span>
                                 <div class="qualification-calender">
                                     <i class="uil uil-calendar-alt"></i>
@@ -362,11 +362,72 @@
                 </div>
             </div>
         </section>
+        <!-- Portfolio/Projects -->
+        <section class="portfolio section" id="portfolio">
+            <h2 class="section-title">
+                Portfolio
+            </h2>
+            <span class="section-subtitle">
+                Most recent work
+            </span>
+            <!-- Portfolio 1 -->
+            <div class="portfolio-container swiper-container container">
+                <div class="swiper-wrapper">
+                    <div class="portfolio-content grid swiper-slide">
+                        <img src="assets/img/portfolio.PNG" class="portfolio-img" alt="">
+                        <div class="portfolio-data">
+                            <h3 class="portfolio-title">My Personal Website</h3>
+                            <p class="portfolio-description">My personal/portfolio website adaptable to all devices.</p>
+                            <a href="syedmazharaliraza.netlify.app"
+                                class="button button-flex button-small portfolio-button">
+                                Demo&nbsp;<i class="uil uil-arrow-right button-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Portfolio 2 -->
+                    <div class="portfolio-content grid swiper-slide">
+                        <img class="portfolio-img" src="assets/img/dungeondodge.png" alt="">
+                        <div class="portfolio-data">
+                            <h3 class="portfolio-title">Dungeon Dodge Game</h3>
+                            <p class="portfolio-description">A retro, arcade game development project build using HTML,
+                                CSS and pure JavaScript.</p>
+                            <a href="hpsortinghat.netlify.app" class="button button-flex button-small portfolio-button">
+                                Demo&nbsp;<i class="uil uil-arrow-right button-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Portfolio 3 -->
+                    <div class="portfolio-content grid swiper-slide">
+                        <img class="portfolio-img" src="assets/img/sortinghat.PNG" alt="">
+                        <div class="portfolio-data">
+                            <h3 class="portfolio-title">The Sorting Hat</h3>
+                            <p class="portfolio-description">A JavaScript project based on the famous Harry Potter's
+                                character: The Sorting Hat.</p>
+                            <a href="syedmazharaliraza.netlify.app"
+                                class="button button-flex button-small portfolio-button">
+                                Demo&nbsp;<i class="uil uil-arrow-right button-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next">
+                    <i class="uil uil-angle-right swiper-portfolio-icon"></i>
+                </div>
+                <div class="swiper-button-prev">
+                    <i class="uil uil-angle-left swiper-portfolio-icon"></i>
+                </div>
+
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
 
     </main>
 
 
-
+    <!-- Swiper JS -->
+    <script src="assets/js/swiper-bundle.min.js"></script>
     <!-- JS -->
     <script src="assets/js/script.js"></script>
 </body>
