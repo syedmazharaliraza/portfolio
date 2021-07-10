@@ -56,8 +56,7 @@ workheader.addEventListener('click', () => {
         workheader.style.color = 'var(--first-colour)';
     }
 });
-
-// Portfolio swiper js
+/*---------------------  Portfolio swiper js ---------------------------- */
 let swiper = new Swiper('.portfolio-container', {
     cssMode: true,
     loop: true,
@@ -71,13 +70,46 @@ let swiper = new Swiper('.portfolio-container', {
     },
 });
 
-// Show Scroll
-function scrollUp () {
+/*--------------------- Show Scroll---------------------------- */
+function scrollUp() {
     const scrollUp = document.getElementById('scroll-up');
-    if(this.scrollY >= 560) {
+    if (this.scrollY >= 560) {
         scrollUp.classList.add('show-scroll');
     }
     else
-    scrollUp.classList.remove('show-scroll');
+        scrollUp.classList.remove('show-scroll');
 }
-window.addEventListener('scroll',scrollUp);
+window.addEventListener('scroll', scrollUp);
+
+/*--------------------- Dark Theme---------------------------- */
+
+// Activate/ Deactivate the theme manually with the button
+
+const themeButton = document.getElementById('theme-button')
+const darkTheme = 'dark-theme'
+const iconTheme = 'uil-sun'
+
+themeButton.addEventListener('click', function() {
+    //Add or remove the dark/icon theme
+    document.body.classList.toggle(darkTheme)
+    themeButton.classList.toggle(iconTheme)
+    // We save the theme and the curent icon that the user chose 
+    localStorage.setItem('selected-theme', getCurrentTheme())
+    localStorage.setItem('selected-icon', getCurrentIcon())
+});
+
+// Previously selected topic (if user selected)
+const selectedTheme = localStorage.getItem('selected-theme')
+const selectedIcon = localstorage.getItem('selected-icon')
+
+const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
+const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-moon' : 'uil-sun'
+
+// We validate if the user previously chose a topic
+
+if (selectedTheme) {
+    // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+    document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
+    themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
+}
+
