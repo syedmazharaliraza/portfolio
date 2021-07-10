@@ -40,7 +40,7 @@ educationheader.style.color = 'var(--first-colour)';
 
 educationheader.addEventListener('click', () => {
     let condition1 = work.classList.contains('qualification-inactive');
-    if(!condition1){
+    if (!condition1) {
         education.classList.remove('qualification-inactive');
         work.classList.add('qualification-inactive');
         workheader.style.color = 'var(--text-colour)';
@@ -49,7 +49,7 @@ educationheader.addEventListener('click', () => {
 });
 workheader.addEventListener('click', () => {
     let condition2 = education.classList.contains('qualification-inactive');
-    if(!condition2){
+    if (!condition2) {
         work.classList.remove('qualification-inactive');
         education.classList.add('qualification-inactive');
         educationheader.style.color = 'var(--text-colour)';
@@ -62,11 +62,22 @@ let swiper = new Swiper('.portfolio-container', {
     cssMode: true,
     loop: true,
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
     },
     pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
+        el: '.swiper-pagination',
+        clickable: true,
     },
-  });
+});
+
+// Show Scroll
+function scrollUp () {
+    const scrollUp = document.getElementById('scroll-up');
+    if(this.scrollY >= 560) {
+        scrollUp.classList.add('show-scroll');
+    }
+    else
+    scrollUp.classList.remove('show-scroll');
+}
+window.addEventListener('scroll',scrollUp);
