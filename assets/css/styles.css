@@ -574,6 +574,33 @@ img {
     display: none;
 }
 
+/* Achievements */
+
+.achievements-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--mb-1);
+}
+
+.achievements-title {
+    font-size: var(--h3-font-size);
+}
+
+
+.thumbnail-img {
+    border-radius: 50%;
+    width: 3rem;
+    margin-right: 0.5rem;
+}
+
+.achievements-description {
+    margin-bottom: var(--mb-2-5);
+    line-height: 1.75rem;
+    margin-left: 4rem;
+}
+
+
+
 /* Portfolio */
 
 .portfolio-container {
@@ -768,6 +795,9 @@ img {
         width: 180px;
     }
     .skills-title {
+        font-size: var(--normal-font-size);
+    }
+    .achievements-title {
         font-size: var(--normal-font-size);
     }
     .qualification-data {
