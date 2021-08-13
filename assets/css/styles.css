@@ -584,6 +584,7 @@ img {
 
 .achievements-title {
     font-size: var(--h3-font-size);
+    color: var(--first-colour);
 }
 
 
