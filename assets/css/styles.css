@@ -484,11 +484,11 @@ img {
 }
 
 .skills-css {
-    width: 70%;
+    width: 75%;
 }
 
 .skills-js {
-    width: 60%;
+    width: 65%;
 }
 
 .skills-cpp {
@@ -584,6 +584,8 @@ img {
 
 .achievements-title {
     font-size: var(--h3-font-size);
+}
+.achievements-subtitle {
     color: var(--first-colour);
 }
 
@@ -597,7 +599,7 @@ img {
 .achievements-description {
     margin-bottom: var(--mb-2-5);
     line-height: 1.75rem;
-    margin-left: 4rem;
+    margin-left: 3.5rem;
 }
 
 

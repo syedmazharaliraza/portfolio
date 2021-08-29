@@ -36,7 +36,7 @@ let education = document.getElementById('education');
 let work = document.getElementById('work');
 let educationheader = document.getElementById('educationheader');
 let workheader = document.getElementById('workheader');
-educationheader.style.color = 'var(--first-colour)';
+workheader.style.color = 'var(--first-colour)';
 
 educationheader.addEventListener('click', () => {
     let condition1 = work.classList.contains('qualification-inactive');
@@ -89,7 +89,7 @@ const themeButton = document.getElementById('theme-button')
 const darkTheme = 'dark-theme'
 const iconTheme = 'uil-sun'
 
-themeButton.addEventListener('click', function() {
+themeButton.addEventListener('click', function () {
     //Add or remove the dark/icon theme
     document.body.classList.toggle(darkTheme)
     themeButton.classList.toggle(iconTheme)
