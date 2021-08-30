@@ -585,10 +585,10 @@ img {
 .achievements-title {
     font-size: var(--h3-font-size);
 }
+
 .achievements-subtitle {
     color: var(--first-colour);
 }
-
 
 .thumbnail-img {
     border-radius: 50%;
@@ -601,8 +601,6 @@ img {
     line-height: 1.75rem;
     margin-left: 3.5rem;
 }
-
-
 
 /* Portfolio */
 
@@ -623,6 +621,10 @@ img {
 .portfolio-title {
     font-size: var(--h3-font-size);
     margin-bottom: var(--mb-0-50);
+}
+
+.portfolio-data {
+    margin-bottom: 1em;
 }
 
 .portfolio-description {
