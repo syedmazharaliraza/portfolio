@@ -21,7 +21,9 @@ if (navClose) {
 const skillContent1 = document.querySelector('#skill1'),
     skillHeader1 = document.querySelector('#skill1header'),
     skillContent2 = document.querySelector('#skill2'),
-    skillHeader2 = document.querySelector('#skill2header');
+    skillHeader2 = document.querySelector('#skill2header'),
+    skillContent3 = document.querySelector('#skill3'),
+    skillHeader3 = document.querySelector('#skill3header');
 
 skillHeader1.addEventListener('click', function () {
     skillContent1.classList.toggle('skills-open');
@@ -29,6 +31,9 @@ skillHeader1.addEventListener('click', function () {
 
 skillHeader2.addEventListener('click', function () {
     skillContent2.classList.toggle('skills-open');
+});
+skillHeader3.addEventListener('click', function () {
+    skillContent3.classList.toggle('skills-open');
 });
 
 // Qualification

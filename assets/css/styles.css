@@ -495,6 +495,14 @@ img {
     width: 30%;
 }
 
+.skills-react {
+    width: 45%;
+}
+
+.skills-btstrap {
+    width: 75%;
+}
+
 .skills-open .skills-list {
     height: max-content;
     margin-bottom: var(--mb-3);
