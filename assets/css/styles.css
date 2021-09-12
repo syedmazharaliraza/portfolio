@@ -410,6 +410,12 @@ img {
     margin-bottom: var(--mb-2-5);
     line-height: 1.75rem;
 }
+.about-gif {
+    width: 300px;
+    border-radius: 0.5rem;
+    justify-self: center;
+    align-self: center;
+}
 
 /* Skills */
 
@@ -617,7 +623,7 @@ img {
 }
 
 .portfolio-content {
-    padding: 0 1.5rem;
+    padding: 0 2.5rem;
 }
 
 .portfolio-img {
@@ -901,8 +907,8 @@ img {
     .about-container {
         column-gap: 5rem;
     }
-    .about-img {
-        width: 350px;
+    .about-gif {
+        width: 360px;
     }
     .about-description {
         text-align: initial;
@@ -913,8 +919,14 @@ img {
     .about-buttons {
         justify-content: initial;
     }
-    .skills-container {
+    .skills-container, .about-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .about-data {
+        align-self: center;
+    }
+    .about-description {
+        margin-bottom: 0;
     }
     .qualification-tabs {
         justify-content: center;
@@ -961,6 +973,7 @@ img {
     }
     .portfolio-content {
         column-gap: 5rem;
+        padding: 0, 1.5rem;
     }
     .swiper-portfolio-icon {
         font-size: 3.5rem;
