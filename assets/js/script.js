@@ -18,22 +18,15 @@ if (navClose) {
 };
 
 // Accordion Skills
-const skillContent1 = document.querySelector('#skill1'),
-    skillHeader1 = document.querySelector('#skill1header'),
-    skillContent2 = document.querySelector('#skill2'),
-    skillHeader2 = document.querySelector('#skill2header'),
-    skillContent3 = document.querySelector('#skill3'),
-    skillHeader3 = document.querySelector('#skill3header');
+const skillContent = document.querySelectorAll('.skill');
+const skillHeader = document.querySelectorAll('.skills-header');
+const skillContentArr = Array.from(skillContent);
+const skillHeaderArr = Array.from(skillHeader);
 
-skillHeader1.addEventListener('click', function () {
-    skillContent1.classList.toggle('skills-open');
-});
-
-skillHeader2.addEventListener('click', function () {
-    skillContent2.classList.toggle('skills-open');
-});
-skillHeader3.addEventListener('click', function () {
-    skillContent3.classList.toggle('skills-open');
+skillHeaderArr.forEach((element, idx) => {
+    element.addEventListener('click', function () {
+        skillContentArr[idx].classList.toggle('skills-open');
+    });
 });
 
 // Qualification
