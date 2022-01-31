@@ -3,6 +3,19 @@ const navMenu = document.getElementById('nav-menu');
 const navToggle = document.getElementById('nav-toggle');
 const navClose = document.getElementById('nav-close');
 
+
+// Colour change
+let huecolor = 0;
+setInterval(() => {
+    if (huecolor < 360) {
+        ++huecolor;
+    }
+    else {
+        huecolor = 0;
+    }
+    document.documentElement.style.setProperty("--hue-colour", huecolor);
+}, 100);
+
 //Menu Show
 if (navToggle) {
     navToggle.addEventListener('click', function () {
@@ -110,4 +123,5 @@ if (selectedTheme) {
     document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
     themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
 }
+
 
