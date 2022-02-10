@@ -501,11 +501,11 @@ img {
 }
 
 .skills-css {
-    width: 70%;
+    width: 80%;
 }
 
 .skills-js {
-    width: 65%;
+    width: 75%;
 }
 
 .skills-cpp {
@@ -513,11 +513,21 @@ img {
 }
 
 .skills-react {
-    width: 45%;
+    width: 70%;
 }
 
 .skills-btstrap {
-    width: 75%;
+    width: 85%;
+}
+
+.skills-express {
+    width: 50%;
+}
+.skills-node {
+    width: 60%;
+}
+.skills-mongodb {
+    width: 70%;
 }
 
 .skills-open .skills-list {
@@ -612,7 +622,7 @@ img {
 }
 
 .achievements-subtitle {
-    color: var(--first-colour);
+    color: var(--first-colour-lighter);
 }
 
 .thumbnail-img {
