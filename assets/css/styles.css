@@ -410,11 +410,22 @@ img {
     margin-bottom: var(--mb-2-5);
     line-height: 1.75rem;
 }
-.about-gif {
-    width: 300px;
-    border-radius: 0.5rem;
+.my-video{
+    height: 300px;
+    width: 250px;
+    border-radius: 1rem;
+    border: 1px solid var(--first-colour-lighter);
     justify-self: center;
     align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.my-video video {
+    width: 100%;
+    transform: translateY(20px);
 }
 
 /* Skills */
