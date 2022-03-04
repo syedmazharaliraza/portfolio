@@ -632,10 +632,6 @@ img {
   font-size: var(--h3-font-size);
 }
 
-.achievements-subtitle {
-  color: var(--first-colour-lighter);
-}
-
 .thumbnail-img {
   width: 3rem;
   border-radius: 50%;
