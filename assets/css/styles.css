@@ -508,15 +508,15 @@ img {
 }
 
 .skills-html {
-  width: 80%;
+  width: 90%;
 }
 
 .skills-css {
-  width: 80%;
+  width: 85%;
 }
 
 .skills-js {
-  width: 75%;
+  width: 80%;
 }
 
 .skills-cpp {
@@ -532,10 +532,10 @@ img {
 }
 
 .skills-express {
-  width: 50%;
+  width: 70%;
 }
 .skills-node {
-  width: 60%;
+  width: 70%;
 }
 .skills-mongodb {
   width: 70%;
