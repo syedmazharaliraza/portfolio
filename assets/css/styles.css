@@ -174,6 +174,28 @@ img {
 }
 
 /* Nav */
+.notification-bar {
+  background-color: #fff3cd; /* Red background color, you can change it */
+  color: #856404; /* Dark red text color, you can change it */
+  padding: 8px 24px 8px 8px;
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+}
+
+.notification-bar a {
+  color: inherit;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+#close-notification-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
 .nav {
   max-width: 968px;

@@ -3,6 +3,14 @@ const navMenu = document.getElementById("nav-menu");
 const navToggle = document.getElementById("nav-toggle");
 const navClose = document.getElementById("nav-close");
 
+// Close notification bar
+const notificationBar = document.querySelector(".notification-bar");
+const closeNotificationIcon = document
+  .querySelector("#close-notification-icon")
+  .addEventListener("click", () => {
+    notificationBar.style.display = "none";
+  });
+
 // Colour change
 let huecolor = 0;
 setInterval(() => {
