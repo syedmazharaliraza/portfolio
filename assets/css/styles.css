@@ -988,6 +988,12 @@ img {
   }
   .about-data {
     align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .about-data .button {
+    width: fit-content;
   }
   .about-description {
     margin-bottom: 0;
