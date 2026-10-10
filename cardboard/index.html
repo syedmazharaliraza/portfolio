@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Syed Mazhar Ali Raza — Frontend-heavy full-stack engineer</title>
+<meta name="description" content="Syed Mazhar Ali Raza, frontend-heavy full-stack engineer in Bangalore. Experience, case studies, side projects and open-source work, on one interactive career timeline.">
+<link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<style>
+html,body{margin:0;height:100%;background:#0f1012;color:#ecebe8;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:#ecebe8;text-decoration-color:#4a4d54;text-underline-offset:3px}
+a:hover{color:#ffffff;text-decoration-color:oklch(0.72 0.17 30)}
+button{font-family:inherit}
+*{box-sizing:border-box}
+::selection{background:oklch(0.72 0.17 30 / 0.35)}
+@keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.07) translate(-1.5%,-2%)}}
+@keyframes mediaIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+@keyframes hintPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script src="illustrations.js"></script>
+<script>
+(function(){
+const RESUME='https://drive.google.com/file/d/1CwAvaQo6MuNYHtNWGRpp2y4a_DHteVnt/view';
+const Illo=window.PortfolioIllo;
+
+// The design uses inline style strings and style-hover attributes; translate them for React.
+const hoverSheet=document.head.appendChild(document.createElement('style')).sheet;
+const hoverCls=new Map();
+function hoverClass(css){
+  let cls=hoverCls.get(css);
+  if(!cls){
+    cls='hv'+hoverCls.size;
+    const decl=css.split(';').map(d=>d.trim()).filter(Boolean).map(d=>d+' !important').join(';');
+    hoverSheet.insertRule('.'+cls+':hover{'+decl+'}',hoverSheet.cssRules.length);
+    hoverCls.set(css,cls);
+  }
+  return cls;
+}
+const styleCache=new Map();
+function parseStyle(s){
+  let o=styleCache.get(s);
+  if(o)return o;
+  o={};
+  for(const d of s.split(';')){
+    const i=d.indexOf(':'); if(i<0)continue;
+    const k=d.slice(0,i).trim(); if(!k)continue;
+    o[k.startsWith('--')?k:k.replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=d.slice(i+1).trim();
+  }
+  if(styleCache.size<2000)styleCache.set(s,o);
+  return o;
+}
+function h(type,props,...children){
+  if(props){
+    props=Object.assign({},props);
+    if(typeof props.style==='string')props.style=parseStyle(props.style);
+    if(props['style-hover']){props.className=(props.className?props.className+' ':'')+hoverClass(props['style-hover']);delete props['style-hover'];}
+  }
+  return React.createElement(type,props,...children);
+}
+const html=htm.bind(h);
+
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const TOTAL=53, BP=900, WIDE=1240, MPX=15;
+const MONO="font-family:'Geist Mono',ui-monospace,monospace";
+const ACCENT='oklch(0.72 0.17 30)';
+const HUE={exp:250,proj:160,stack:75,oss:200};
+const COMPANY={
+ mk:{site:'https://markopolo.ai/',hue:285,about:'AI revenue agents for online stores'},
+ tf:{site:'https://home.tealfeed.com/',hue:190,about:'Booking & payments for appointment-led practices'},
+ cube:{site:'https://cubehq.ai/',hue:262,about:'AI marketing agents for local businesses'},
+ wg:{site:'https://wayground.com/',hue:300,about:'Interactive learning for classrooms'}
+};
+const EXP=[
+ {id:'mk-intern',co:'mk',track:'exp',s:0,e:4,short:'Markopolo.ai',sub:'Intern',company:'Markopolo.ai',role:'Frontend Developer Intern',from:'Jun 2022',to:'Sep 2022',
+  points:['Turned Figma designs into responsive, accessible React components','Fixed production bugs by tracing each one to its root cause'],
+  tech:['React','Redux','TypeScript','SASS','Mantine'],
+  caption:'A shopper abandons checkout. AI agents follow up over email, SMS, WhatsApp and a voice call until the order is recovered.'},
+ {id:'mk-fe',co:'mk',track:'exp',s:4,e:10,short:'Markopolo.ai',sub:'Frontend Engineer',company:'Markopolo.ai',role:'Frontend Engineer',from:'Oct 2022',to:'Mar 2023',
+  points:['Built data visualizations on the Facebook Graph API for audience insights and campaign reports','Shipped end-to-end ad-creation pipelines for TikTok and LinkedIn, from template to platform-compliant creative','Sped up rendering of analytics dashboards that load large Graph API payloads'],
+  tech:['React','Redux','TypeScript','GraphQL','Mantine'],
+  caption:'A shopper abandons checkout. AI agents follow up over email, SMS, WhatsApp and a voice call until the order is recovered.'},
+ {id:'tealfeed',co:'tf',track:'exp',s:12,e:19,short:'Tealfeed',sub:'Frontend Intern',company:'Tealfeed',role:'Frontend Engineer Intern',from:'Jun 2023',to:'Dec 2023',
+  points:['Built form-heavy features with strict validation','Shipped reusable components to a Storybook-powered design system','Implemented secure auth with token rotation and server-side sessions on the Next.js App Router'],
+  tech:['Next.js 13','TypeScript','Tailwind','Zod','React Hook Form','Turborepo'],
+  caption:'A client picks a day and time, pays by UPI, and gets an automatic reminder synced to their calendar.'},
+ {id:'cube',co:'cube',track:'exp',s:19,e:23,short:'Cube',sub:'Frontend Intern',company:'Cube',role:'Frontend Engineer Intern',from:'Jan 2024',to:'Apr 2024',
+  points:['Built SEO-focused Next.js website templates with hybrid rendering, improving organic traffic and Core Web Vitals','Refactored legacy components for maintainability and type safety'],
+  metrics:[{v:'−60%',l:'codebase volume'}],
+  tech:['Next.js','TypeScript','React Query','Zustand','Panda CSS'],
+  caption:'An AI agent lifts a local business up search results, then drafts replies to new reviews in the brand voice.'},
+ {id:'wg-l3',co:'wg',track:'exp',s:24,e:36,short:'Wayground',sub:'Software Engineer L3',company:'Wayground (ex-Quizizz)',role:'Software Engineer L3',from:'Jun 2024',to:'Jun 2025',
+  points:['Built full-stack search localization, adopted across international markets','Rebuilt search suggestions around query-aware routing, history and preference signals','Shipped an interactive video experience end to end: dynamic filters, milestone markers and hover previews','Added curated learning bundles to server-rendered search results','Moved critical backend services from Node.js to Go, with AI agents writing much of the Go','Stabilized CI/CD by fixing flaky E2E tests and rerun workflows'],
+  metrics:[{v:'+1.5 pp',l:'search success rate'},{v:'−40%',l:'API latency at peak load'}],
+  tech:['Vue 3','Nuxt','TypeScript','Go'],
+  caption:'A lesson video pauses at milestones to ask a question. Search works across languages.'},
+ {id:'wg-l4',co:'wg',track:'exp',s:36,e:53,short:'Wayground',sub:'Software Engineer L4',company:'Wayground (ex-Quizizz)',role:'Software Engineer L4',from:'Jun 2025',to:'Now',
+  points:['Built an AI-driven onboarding workflow for the Growth team that automates new-user activation','Built a real-time collaborative discussion board over WebSockets','Re-architected the frontend monorepo for smaller bundles and faster CI','Drove Growth-team initiatives on user acquisition','Contributed to an internal agent over BigQuery that surfaces company analytics for Sales and Product','Ran 40+ technical interviews on JavaScript fundamentals, problem-solving and system design'],
+  metrics:[{v:'+10%',l:'activation rate'},{v:'+25%',l:'user acquisition'},{v:'−15%',l:'bundle size'},{v:'−40%',l:'CI build time'},{v:'<150 ms',l:'real-time sync'}],
+  tech:['Vue 3','Nuxt','TypeScript','Go','WebSockets'],
+  hasCases:true,
+  caption:'A live classroom quiz: students answer and the leaderboard stays in sync for everyone.'}
+];
+const ORBIT={id:'orbit',track:'proj',s:47,e:53,short:'Orbit',sub:'Side project',title:'Orbit — a desktop command center for AI coding agents'};
+const STACK=[
+ {id:'st-react',track:'stack',name:'React',years:'2022–2024',s:0,e:31},
+ {id:'st-next',track:'stack',name:'Next.js',years:'2023–2024',s:7,e:31},
+ {id:'st-ts',track:'stack',name:'TypeScript',years:'2022–now',s:0,e:53},
+ {id:'st-vue',track:'stack',name:'Vue 3 / Nuxt',years:'2024–now',s:24,e:53},
+ {id:'st-go',track:'stack',name:'Go (AI-assisted)',years:'2024–now',s:24,e:53},
+ {id:'st-el',track:'stack',name:'Electron + Claude Code hooks',years:'Orbit, recent',s:47,e:53}
+];
+const CASES={
+ case1:{id:'case1',n:'01',title:'Real-time discussion board',metrics:[{v:'<150 ms',l:'sync latency across concurrent clients'}],problem:'A discussion only feels live if every post shows up for everyone, right away, even with many people writing at once.',did:'Built a collaborative discussion board that keeps every connected client in sync over WebSockets.',result:'Updates reach all concurrent clients in under 150 ms.',stack:['Vue 3','Nuxt','TypeScript','WebSockets']},
+ case2:{id:'case2',n:'02',title:'Monorepo re-architecture',metrics:[{v:'−15%',l:'bundle size'},{v:'−40%',l:'CI build time'}],problem:'A growing frontend monorepo was slowing down both users and engineers.',did:"Re-architected the frontend monorepo's structure and build.",result:'A 15% smaller bundle for users and 40% faster CI builds for the team.',stack:['Nuxt','Vue 3','TypeScript']}
+};
+const HOW=[
+ {t:'I care how it feels',d:'I write the interface by hand and notice the details: load time, jank, the last 10% of polish.'},
+ {t:'I own the whole feature',d:'From the pixel a user clicks to the service behind it. For backend code I lean on AI agents, then review, test and measure what ships.'},
+ {t:"I write code I'd want to review",d:"I've run 40+ technical interviews, so I write code that's easy to read the first time."}
+];
+const ALSO=['First place (Advanced), MelonJam 2, a 48-hour game jam','Web developer mentor at Girl Code It','JavaScript project mentor, Cross Winter of Code','B.Tech, Electronics & Communications, MAIT Delhi (CGPA 8.477)'];
+const OSS=[
+ ['fix(frontend): correct committed label typo in commit details','Low','Merged','Frontend','Mar 12'],
+ ['fix(groups): preselect role in group details edit modal','Low','Open','Frontend','Mar 17'],
+ ['fix(groups): return explicit duplicate-slug errors on create/update','Low','Open','Frontend','Mar 24'],
+ ['fix(project-templates): hide project type on edit template to avoid noop updates','Medium','Merged','Frontend','Mar 26'],
+ ['fix(projects): allow spaces in org project search names','High','Open','Frontend','Mar 26'],
+ ['fix(product-enforcements): hide product enforcements tab for sub-organizations','Low','Open','Frontend','Mar 30'],
+ ['fix(audit-logs): use project id for audit log retention update','High','Merged','Frontend','Mar 31'],
+ ['refactor(workflow-integrations): build Microsoft Teams OAuth URL with URLSearchParams','Low','Open','Frontend','Mar 31'],
+ ['fix(secrets-sharing): show password errors on shared secret page without login redirect','Medium','Open','Frontend','Apr 1'],
+ ['fix(frontend): make modal cancel actions close tax and revocation dialogs','Low','Open','Frontend','Apr 3'],
+ ['fix(vault-migration): enforce org ownership before updating namespace config','High','Merged','Backend','Apr 4'],
+ ['fix(personal-settings): allow non-email MFA without email service','Medium','Open','Frontend','Apr 4'],
+ ['fix(org-membership): enforce member privilege boundary checks','Medium','Closed','Backend','Apr 5'],
+ ['security report: identity-scoped conditions not enforced when checking assume privileges','High','Merged','Security','Apr 9'],
+ ['security report: access Request permission validation bypass','High','Merged','Security','Apr 11'],
+ ['fix(scim): toggle deleteScimToken modal state on close','Low','Open','Frontend','Apr 13'],
+ ['fix(identity): enforce delete protection in scoped identity delete','Medium','Merged','Backend','Apr 14'],
+ ['security report: certificate dashboard permission filter bypass','Medium','Closed','Security','Apr 24']
+].map(([title,sev,status,type,date])=>({title,sev,status,type,date}));
+const OSSN=(k,v)=>OSS.filter(r=>r[k]===v).length;
+const INFI={id:'infisical',track:'proj',s:45,e:47,short:'OSS',sub:'Open source',title:'Infisical — open-source contributions, Mar–Apr 2026'};
+const TL=[...EXP,ORBIT,INFI];
+const ORDER=[...TL].sort((a,b)=>a.s-b.s);
+const ALLCLIPS=[...TL,...STACK];
+const NAV=[
+ {k:'intro',label:'Intro',to:'intro'},
+ {k:'exp',label:'Experience',to:'wg-l4'},
+ {k:'cases',label:'Case studies',to:'case1'},
+ {k:'orbit',label:'Orbit',to:'orbit'},
+ {k:'oss',label:'Open source',to:'infisical'},
+ {k:'how',label:'How I work',to:'how'},
+ {k:'contact',label:'Contact',to:'contact'}
+];
+const PAGES=['intro','case1','case2','how','contact'];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const mLabel=i=>{const t=2022*12+5+clamp(Math.floor(i),0,TOTAL-1);return MONTHS[t%12]+' '+Math.floor(t/12);};
+const dur=n=>{const y=Math.floor(n/12),m=n%12;return [y?y+(y>1?' yrs':' yr'):'',m?m+' mo':''].filter(Boolean).join(' ');};
+const clip=id=>ALLCLIPS.find(c=>c.id===id);
+const under=(c,m)=>c.s<=m&&m<c.e;
+const overlap=(a,b)=>a.s<b.e&&b.s<a.e;
+const catOf=id=>{if(id==='intro'||id==='how'||id==='contact')return id;if(CASES[id])return 'cases';if(id==='orbit')return 'orbit';if(id==='infisical')return 'oss';const c=clip(id);return c&&c.track==='stack'?'':'exp';};
+
+// Shared bits of markup.
+const eyebrow=(text,hue)=>html`<span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:oklch(0.82 0.08 ${hue})"><span style="width:8px;height:8px;border-radius:50%;background:oklch(0.68 0.12 ${hue})"></span>${text}</span>`;
+const chips=(list)=>html`<div style="display:flex;flex-wrap:wrap;gap:6px">${list.map(s=>html`<span key=${s} style="padding:4px 10px;background:#17181b;border:1px solid #26282c;color:#c9cacd;border-radius:999px;font-size:12.5px">${s}</span>`)}</div>`;
+const label=(text)=>html`<span style="font-size:12.5px;font-weight:500;color:#85878e">${text}</span>`;
+const btnPrimary="display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;background:"+ACCENT+";border:0;border-radius:999px;color:#1a0c09;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap";
+const btnSecondary="display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;background:#1a1b1f;border:1px solid #2e3035;border-radius:999px;color:#ecebe8;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer;white-space:nowrap";
+const metricTiles=(list)=>html`
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px">
+    ${list.map(mt=>html`
+      <div key=${mt.l} style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:12px;background:#151619;border:1px solid #232529">
+        <span style="font-size:clamp(19px,2cqi,24px);font-weight:600;letter-spacing:-0.03em;line-height:1.05;white-space:nowrap;color:oklch(0.87 0.1 160)">${mt.v}</span>
+        <span style="font-size:12.5px;line-height:1.3;color:#9a9ca3">${mt.l}</span>
+      </div>`)}
+  </div>`;
+// A product preview: header with logo + link, a fixed-ratio animated illustration, and a caption.
+const preview=(p)=>html`
+  <figure style="margin:0;display:flex;flex-direction:column;min-width:0;border:1px solid #26282c;border-radius:16px;overflow:hidden;background:#141518;box-shadow:0 18px 50px rgba(0,0,0,0.35);animation:mediaIn 0.45s cubic-bezier(.3,.7,.2,1) both">
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 12px 12px 14px;min-width:0">
+      <span style="flex:none;width:34px;height:34px;border-radius:9px;background:oklch(0.42 0.12 ${p.hue});color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">${p.initial}</span>
+      <span style="display:flex;flex-direction:column;gap:1px;min-width:0;flex:1">
+        <span style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.brand}</span>
+        <span style="font-size:12px;color:#9a9ca3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.about}</span>
+      </span>
+      <a href=${p.href} target="_blank" rel="noopener" style="flex:none;display:inline-flex;align-items:center;height:30px;padding:0 12px;border:1px solid #2e3035;border-radius:999px;font-size:12.5px;color:#c9cacd;text-decoration:none;white-space:nowrap" style-hover="color:#ffffff;border-color:#4a4d54">${p.linkLabel}</a>
+    </div>
+    <div style="padding:0 12px">
+      <div style="position:relative;width:100%;aspect-ratio:4 / 3;border-radius:10px;overflow:hidden;background:#0d0e10;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06)">
+        <${Illo} kind=${p.illo} />
+      </div>
+    </div>
+    <figcaption style="display:flex;flex-direction:column;gap:3px;padding:11px 14px 14px">
+      <span style="font-size:11.5px;font-weight:500;color:#7d8088">What the animation shows</span>
+      <span style="font-size:13px;line-height:1.45;color:#c9cacd;text-wrap:pretty">${p.caption}</span>
+    </figcaption>
+  </figure>`;
+
+class App extends React.Component {
+  state={short:typeof window!=='undefined'&&window.innerHeight<800,ph:0,sel:'intro',playing:false,hint:true,mobile:typeof window!=='undefined'&&window.innerWidth<BP,wide:typeof window!=='undefined'&&window.innerWidth>=WIDE};
+  scrollRef=React.createRef(); innerRef=React.createRef(); stageRef=React.createRef();
+  drag=null; suppress=false; raf=0;
+
+  componentDidMount(){
+    this.onResize=()=>{const mobile=window.innerWidth<BP,wide=window.innerWidth>=WIDE,short=window.innerHeight<800;if(mobile!==this.state.mobile||wide!==this.state.wide||short!==this.state.short)this.setState({mobile,wide,short});};
+    this.onKeyDown=(e)=>{
+      const tg=e.target; if(tg&&tg!==document.body&&tg.tagName!=='HTML')return;
+      if(e.code==='Space'){e.preventDefault();this.togglePlay();}
+      else if(e.key==='ArrowRight'){this.step(1);}else if(e.key==='ArrowLeft'){this.step(-1);}
+    };
+    window.addEventListener('resize',this.onResize);
+    window.addEventListener('keydown',this.onKeyDown);
+    const s=new URLSearchParams(location.search).get('select');
+    if(s&&(clip(s)||PAGES.includes(s)||s==='infisical'))this.select(s);
+  }
+  componentWillUnmount(){window.removeEventListener('resize',this.onResize);window.removeEventListener('keydown',this.onKeyDown);cancelAnimationFrame(this.raf);}
+  componentDidUpdate(pp,ps){
+    if(this.state.sel!==ps.sel&&this.stageRef.current)this.stageRef.current.scrollTop=0;
+    if(this.state.ph!==ps.ph){
+      const sc=this.scrollRef.current,inn=this.innerRef.current;
+      if(sc&&inn&&sc.scrollWidth>sc.clientWidth+2){
+        const x=inn.offsetLeft+this.state.ph/TOTAL*inn.offsetWidth, w=sc.clientWidth;
+        if(x<sc.scrollLeft+40||x>sc.scrollLeft+w-40)sc.scrollLeft=x-w/2;
+      }
+    }
+  }
+
+  primaryAt(m){const e=EXP.find(c=>under(c,m));if(e)return e.id;return under(ORBIT,m)?'orbit':under(INFI,m)?'infisical':'gap';}
+  isUnder(id,m){const c=clip(id);return !!c&&under(c,m);}
+  setPh(next,mode,prev){
+    next=clamp(next,0,TOTAL); const m=Math.min(next,TOTAL-0.001);
+    let sel=this.state.sel;
+    if(mode==='play'){
+      const crossed=ORDER.filter(c=>c.s>prev&&c.s<=m);
+      if(crossed.length)sel=crossed[crossed.length-1].id;
+      else if(!this.isUnder(sel,m))sel=this.primaryAt(m);
+    } else if(!this.isUnder(sel,m)) sel=this.primaryAt(m);
+    this.setState({ph:next,sel});
+  }
+  pause(){if(this.state.playing){cancelAnimationFrame(this.raf);this.setState({playing:false});}}
+  togglePlay(){
+    if(this.state.playing){this.pause();return;}
+    let start=this.state.ph, prev=start;
+    if(start>=TOTAL-0.05||!clip(this.state.sel)){start=0;}
+    if(start===0)prev=start-0.001;
+    this.setState({playing:true,hint:false,ph:start});
+    let last=performance.now(); const durMs=(this.props.playSeconds||20)*1000;
+    const tick=(t)=>{
+      const dt=Math.min(64,t-last); last=t;
+      const next=this.state.ph+dt/durMs*TOTAL;
+      this.setPh(next,'play',prev); prev=Math.min(next,TOTAL-0.001);
+      if(next>=TOTAL){this.setState({playing:false});return;}
+      this.raf=requestAnimationFrame(tick);
+    };
+    this.raf=requestAnimationFrame(tick);
+  }
+  select(id){
+    this.pause();
+    const c=clip(id), st={sel:id,hint:false};
+    if(c)st.ph=c.s;
+    if(id==='intro')st.ph=0;
+    if(CASES[id])st.ph=clip('wg-l4').s;
+    this.setState(st);
+  }
+  step(dir){
+    const {sel,ph}=this.state;
+    let i=ORDER.findIndex(c=>c.id===sel);
+    if(!clip(sel))i=-1;
+    else if(i<0){i=dir>0?ORDER.filter(c=>c.s<=ph).length-1:ORDER.filter(c=>c.s<ph).length;}
+    const j=i+dir;
+    if(j<0){this.select('intro');return;}
+    if(j<ORDER.length)this.select(ORDER[j].id);
+  }
+  xToM(x){const r=this.innerRef.current.getBoundingClientRect();return (x-r.left)/r.width*TOTAL;}
+  gapLabel(m){const pe=Math.max(0,...EXP.filter(c=>c.e<=m).map(c=>c.e)),ns=Math.min(TOTAL,...EXP.filter(c=>c.s>m).map(c=>c.s));return mLabel(pe)+(ns-1>pe?' – '+mLabel(ns-1):'');}
+
+  renderIntro(){
+    const go=(id)=>()=>this.select(id);
+    const quick=[
+      {k:'Current role',t:'Software Engineer L4',d:'Wayground (ex-Quizizz), since Jun 2025',to:'wg-l4',hue:250},
+      {k:'Case study',t:'Real-time discussion board',d:'WebSockets, under 150 ms sync across clients',to:'case1',hue:250},
+      {k:'Side project',t:'Orbit',d:'Tracks every Claude Code agent I have running',to:'orbit',hue:160},
+      {k:'Open source',t:'Infisical',d:`${OSS.length} PRs & security reports, ${OSSN('status','Merged')} merged`,to:'infisical',hue:200}
+    ];
+    return html`
+      <div style="display:flex;flex-direction:column;gap:clamp(22px,3.4cqi,36px)">
+        <div style="display:flex;flex-direction:column;gap:14px;max-width:900px">
+          <span style="font-size:clamp(14px,1.5cqi,16px);color:#9a9ca3">Hi, I'm Syed, a frontend-heavy full-stack engineer in Bangalore.</span>
+          <h1 style="margin:0;font-size:clamp(30px,4.6cqi,56px);line-height:1.04;letter-spacing:-0.04em;font-weight:600;text-wrap:balance">I build interfaces that feel fast, and ship them end to end.</h1>
+          <p style="margin:0;font-size:clamp(15px,1.7cqi,18px);line-height:1.55;color:#b4b6bb;max-width:62ch;text-wrap:pretty">Software Engineer L4 at Wayground (ex-Quizizz), shipping real-time, search and growth features since 2024. Before that, three early-stage startups. I use AI agents for much of my backend code, and built Orbit to keep track of them.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:2px">
+            ${[{v:'+10%',l:'activation, AI onboarding'},{v:'−15%',l:'bundle size, monorepo rework'},{v:'<150 ms',l:'real-time sync, WebSockets'}].map(x=>html`<span key=${x.v} style="display:inline-flex;align-items:baseline;gap:8px"><span style="font-size:clamp(18px,2cqi,22px);font-weight:600;letter-spacing:-0.02em;color:oklch(0.87 0.1 160)">${x.v}</span><span style="font-size:13.5px;color:#9a9ca3">${x.l}</span></span>`)}
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+            <button onClick=${()=>this.togglePlay()} style=${btnPrimary} style-hover="background:oklch(0.78 0.16 30)"><span style="font-size:11px">▶</span>Take the 45-second tour</button>
+            <a href=${RESUME} target="_blank" rel="noopener" style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">View resume ↗</a>
+            <a href="https://github.com/syedmazharaliraza" target="_blank" rel="noopener" style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">GitHub ↗</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${label('Or jump straight to')}
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px">
+            ${quick.map(q=>html`
+              <button key=${q.to} onClick=${go(q.to)} style="position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:13px 40px 13px 15px;background:#141518;border:1px solid #24262a;border-radius:14px;color:#ecebe8;text-align:left;cursor:pointer;font:inherit" style-hover="border-color:#3d4046;background:#18191c">
+                ${eyebrow(q.k,q.hue)}
+                <span style="font-size:15.5px;font-weight:600;letter-spacing:-0.01em">${q.t}</span>
+                <span style="font-size:13px;line-height:1.4;color:#9a9ca3">${q.d}</span>
+                <span aria-hidden="true" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:16px;color:oklch(0.8 0.13 30)">→</span>
+              </button>`)}
+          </div>
+        </div>
+      </div>`;
+  }
+  renderExp(c){
+    const i=EXP.indexOf(c)+1, co=COMPANY[c.co], mobile=this.state.mobile;
+    const text=html`
+      <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:#9a9ca3">
+            <span style="padding:3px 10px;border-radius:999px;background:oklch(0.28 0.05 250);color:oklch(0.88 0.06 250);font-weight:500">Role ${i} of ${EXP.length}</span>
+            <span>${c.from} – ${c.to}</span><span style="color:#4a4d54">·</span><span>${dur(c.e-c.s)}</span>
+          </div>
+          <h2 style="margin:0;font-size:clamp(26px,3.6cqi,42px);line-height:1.05;letter-spacing:-0.035em;font-weight:600;text-wrap:balance">${c.role}</h2>
+          <span style="font-size:clamp(15px,1.7cqi,18px);color:#9a9ca3">at <span style="color:#ecebe8;font-weight:500">${c.company}</span></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${label('What I did')}
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px">
+            ${c.points.map(p=>html`<li key=${p} style="display:flex;gap:10px;font-size:clamp(14px,1.5cqi,16px);line-height:1.5;color:#c9cacd"><span style="flex:none;margin-top:0.62em;width:5px;height:5px;border-radius:50%;background:oklch(0.68 0.12 250)"></span><span>${p}</span></li>`)}
+          </ul>
+        </div>
+        ${c.metrics?html`<div style="display:flex;flex-direction:column;gap:8px">${label('Results')}${metricTiles(c.metrics)}</div>`:null}
+        <div style="display:flex;flex-direction:column;gap:8px">${label('Tech')}${chips(c.tech)}</div>
+        ${c.hasCases?html`
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            ${Object.values(CASES).map(k=>html`<button key=${k.id} onClick=${()=>this.select(k.id)} style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">Case study: ${k.title} →</button>`)}
+          </div>`:null}
+      </div>`;
+    const card=preview({hue:co.hue,initial:c.company[0],brand:c.company.replace(' (ex-Quizizz)',''),about:co.about,href:co.site,linkLabel:'Visit site ↗',illo:c.id,caption:c.caption});
+    return html`
+      <div style="display:grid;grid-template-columns:${mobile?'minmax(0,1fr)':'minmax(0,1fr) minmax(300px,440px)'};gap:clamp(20px,4cqi,48px);align-items:start">
+        ${text}
+        <div style="position:${mobile?'static':'sticky'};top:0">${card}</div>
+      </div>`;
+  }
+  renderOrbit(){
+    const mobile=this.state.mobile;
+    return html`
+      <div style="display:grid;grid-template-columns:${mobile?'minmax(0,1fr)':'minmax(0,1fr) minmax(300px,440px)'};gap:clamp(20px,4cqi,48px);align-items:start">
+        <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+          ${eyebrow('Side project',160)}
+          <h2 style="margin:0;font-size:clamp(26px,3.6cqi,42px);line-height:1.05;letter-spacing:-0.035em;font-weight:600">Orbit</h2>
+          <span style="font-size:clamp(15px,1.7cqi,18px);color:#c9cacd">A desktop command center for AI coding agents.</span>
+          <p style="margin:0;font-size:clamp(14px,1.5cqi,16px);line-height:1.6;color:#b4b6bb;text-wrap:pretty">I run several Claude Code agents at once and kept losing track of which one was waiting on me. Orbit finds every running session across terminals, VS Code and Claude Desktop, shows its live status (working, idle, finished, waiting for input), and takes me back to it in one click. It's built on Claude Code hooks.</p>
+          <div style="display:flex;flex-direction:column;gap:8px">${label('Tech')}${chips(['Electron','TypeScript','Claude Code hooks'])}</div>
+          <div><a href="https://github.com/syedmazharaliraza/orbit" target="_blank" rel="noopener" style=${btnPrimary} style-hover="background:oklch(0.78 0.16 30)">View on GitHub ↗</a></div>
+        </div>
+        <div style="position:${mobile?'static':'sticky'};top:0">${preview({hue:160,initial:'O',brand:'Orbit',about:'Desktop app for macOS',href:'https://github.com/syedmazharaliraza/orbit',linkLabel:'GitHub ↗',illo:'orbit',caption:'Four Claude Code sessions with live statuses. The one waiting for input is highlighted, one click away.'})}</div>
+      </div>`;
+  }
+  renderCase(k){
+    const other=k.id==='case1'?CASES.case2:CASES.case1, cols=this.state.mobile?'minmax(0,1fr)':'repeat(3,minmax(0,1fr))';
+    const block=(t,d,hl)=>html`<div style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:14px;background:${hl?'oklch(0.22 0.03 160)':'#141518'};border:1px solid ${hl?'oklch(0.36 0.06 160)':'#24262a'}">${label(t)}<span style="font-size:clamp(14px,1.5cqi,16px);line-height:1.5;color:#dcdde0;text-wrap:pretty">${d}</span></div>`;
+    return html`
+      <div style="display:flex;flex-direction:column;gap:clamp(18px,3cqi,28px)">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          ${Object.values(CASES).map(x=>html`<button key=${x.id} onClick=${()=>this.select(x.id)} style="min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;cursor:pointer;border:1px solid ${x.id===k.id?'#4a4d54':'#26282c'};background:${x.id===k.id?'#24262a':'transparent'};color:${x.id===k.id?'#ffffff':'#9a9ca3'}">${x.n} · ${x.title}</button>`)}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          ${eyebrow(`Case study ${k.n} · Software Engineer L4 at Wayground, 2025`,250)}
+          <h2 style="margin:0;font-size:clamp(26px,3.6cqi,42px);line-height:1.05;letter-spacing:-0.035em;font-weight:600">${k.title}</h2>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 40px">
+          ${k.metrics.map(mt=>html`<div key=${mt.l} style="display:flex;flex-direction:column;gap:4px"><span style="font-size:clamp(36px,6cqi,64px);font-weight:600;letter-spacing:-0.045em;line-height:1;color:oklch(0.87 0.1 160)">${mt.v}</span><span style="font-size:14px;color:#9a9ca3">${mt.l}</span></div>`)}
+        </div>
+        <div style="display:grid;grid-template-columns:${cols};gap:10px">
+          ${block('The problem',k.problem)}${block('What I did',k.did)}${block('The result',k.result,true)}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">${label('Tech')}${chips(k.stack)}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button onClick=${()=>this.select(other.id)} style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">Next case: ${other.title} →</button>
+          <button onClick=${()=>this.select('wg-l4')} style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">See the role</button>
+        </div>
+      </div>`;
+  }
+  renderHow(){
+    return html`
+      <div style="display:flex;flex-direction:column;gap:clamp(16px,3cqi,28px);max-width:860px">
+        <h2 style="margin:0;font-size:clamp(26px,3.6cqi,42px);line-height:1.05;letter-spacing:-0.035em;font-weight:600">How I work</h2>
+        <div style="display:flex;flex-direction:column">
+          ${HOW.map((x,i)=>html`
+            <div key=${x.t} style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px;padding:clamp(14px,2cqi,22px) 0;border-top:1px solid #222428">
+              <span style="${MONO};font-size:13px;color:oklch(0.8 0.13 30);padding-top:4px">0${i+1}</span>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:clamp(17px,2.2cqi,24px);font-weight:600;letter-spacing:-0.02em">${x.t}</span>
+                <p style="margin:0;font-size:clamp(14px,1.6cqi,17px);line-height:1.55;color:#b4b6bb;text-wrap:pretty">${x.d}</p>
+              </div>
+            </div>`)}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">
+          ${label('Also')}
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+            ${ALSO.map(a=>html`<li key=${a} style="display:flex;gap:10px;font-size:14.5px;line-height:1.5;color:#b4b6bb"><span style="flex:none;margin-top:0.62em;width:5px;height:5px;border-radius:50%;background:#4a4d54"></span><span>${a}</span></li>`)}
+          </ul>
+        </div>
+      </div>`;
+  }
+  renderContact(){
+    const links=[
+      {k:'Email',v:'mazharali.raza11@gmail.com',href:'mailto:mazharali.raza11@gmail.com'},
+      {k:'Resume',v:'View PDF ↗',href:RESUME},
+      {k:'GitHub',v:'github.com/syedmazharaliraza ↗',href:'https://github.com/syedmazharaliraza'},
+      {k:'LinkedIn',v:'in/syedmazharaliraza ↗',href:'https://linkedin.com/in/syedmazharaliraza'}
+    ];
+    return html`
+      <div style="display:flex;flex-direction:column;gap:clamp(18px,3cqi,32px)">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <h2 style="margin:0;font-size:clamp(44px,8cqi,96px);font-weight:600;letter-spacing:-0.05em;line-height:0.95">Let's talk.</h2>
+          <p style="margin:0;font-size:clamp(15px,1.7cqi,18px);color:#b4b6bb">Email is the quickest way to reach me. I'm based in Bangalore.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:10px">
+          ${links.map(l=>html`<a key=${l.k} href=${l.href} target=${l.href.startsWith('http')?'_blank':'_self'} rel="noopener" style="display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:14px;background:#141518;border:1px solid #24262a;text-decoration:none" style-hover="border-color:#3d4046;background:#18191c">${label(l.k)}<span style="font-size:15px;overflow-wrap:anywhere">${l.v}</span></a>`)}
+        </div>
+      </div>`;
+  }
+  renderOss(){
+    const stats=[{v:String(OSS.length),l:'PRs & security reports'},{v:String(OSSN('status','Merged')),l:'merged'},{v:String(OSSN('type','Security')),l:'security reports'},{v:String(OSSN('sev','High')),l:'high severity'}];
+    const st=s=>s==='Merged'?['oklch(0.32 0.07 160)','oklch(0.92 0.06 160)']:s==='Open'?['oklch(0.3 0.06 250)','oklch(0.9 0.05 250)']:['#26282c','#a3a5ab'];
+    return html`
+      <div style="display:flex;flex-direction:column;gap:clamp(16px,2.6cqi,24px)">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          ${eyebrow('Open source · Mar–Apr 2026',200)}
+          <h2 style="margin:0;font-size:clamp(26px,3.6cqi,42px);line-height:1.05;letter-spacing:-0.035em;font-weight:600">Infisical contributions</h2>
+          <p style="margin:0;font-size:clamp(14px,1.5cqi,16px);line-height:1.55;color:#b4b6bb;max-width:64ch">Bug fixes and security reports for Infisical, an open-source secrets management platform. Mostly frontend, plus backend permission checks and security reports.</p>
+        </div>
+        ${metricTiles(stats)}
+        <div style="display:flex;flex-direction:column;border:1px solid #24262a;border-radius:14px;overflow:hidden">
+          ${OSS.map((r,i)=>{const [bg,ink]=st(r.status);return html`
+            <div key=${i} style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding:10px 14px;${i?'border-top:1px solid #1e2023;':''}background:${i%2?'#121315':'#141518'}">
+              <span style="flex:none;width:62px;text-align:center;padding:2px 0;border-radius:999px;background:${bg};color:${ink};font-size:11.5px;font-weight:600">${r.status}</span>
+              <span style="flex:1 1 260px;min-width:0;${MONO};font-size:12.5px;line-height:1.45;color:#d6d7da">${r.title}</span>
+              <span style="flex:none;font-size:12px;color:#85878e;white-space:nowrap">${r.type} · ${r.sev} · ${r.date}</span>
+            </div>`;})}
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <a href="https://github.com/Infisical/infisical/pulls?q=is%3Apr+author%3Asyedmazharaliraza" target="_blank" rel="noopener" style=${btnPrimary} style-hover="background:oklch(0.78 0.16 30)">PRs on GitHub ↗</a>
+          <a href="https://docs.google.com/spreadsheets/d/1fwvAdxAdsbazesAp66MZyRIE8nyqYo5PfR5t01VPRFA/edit?gid=0#gid=0" target="_blank" rel="noopener" style=${btnSecondary} style-hover="border-color:#4a4d54;background:#202226">Full contribution log ↗</a>
+        </div>
+      </div>`;
+  }
+  renderStack(c){
+    return html`
+      <div style="display:flex;flex-direction:column;gap:14px">
+        ${eyebrow('Tech · '+c.years,75)}
+        <h2 style="margin:0;font-size:clamp(28px,4.4cqi,52px);line-height:1.04;letter-spacing:-0.035em;font-weight:600">${c.name}</h2>
+        ${label('Used during')}
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${TL.filter(r=>overlap(r,c)).map(r=>html`<button key=${r.id} onClick=${()=>this.select(r.id)} style=${btnSecondary} style-hover="border-color:#4a4d54">${r.track==='exp'?r.role+' at '+r.short:r.short}</button>`)}
+        </div>
+      </div>`;
+  }
+  renderStage(){
+    const {sel,ph}=this.state, c=clip(sel), m=Math.min(ph,TOTAL-0.001);
+    if(sel==='intro')return this.renderIntro();
+    if(CASES[sel])return this.renderCase(CASES[sel]);
+    if(sel==='how')return this.renderHow();
+    if(sel==='contact')return this.renderContact();
+    if(sel==='orbit')return this.renderOrbit();
+    if(sel==='infisical')return this.renderOss();
+    if(c&&c.track==='exp')return this.renderExp(c);
+    if(c&&c.track==='stack')return this.renderStack(c);
+    return html`
+      <div style="min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center">
+        <span style="font-size:13px;color:#85878e">${this.gapLabel(m)}</span>
+        <span style="font-size:clamp(22px,3cqi,32px);font-weight:600;letter-spacing:-0.02em;color:#9a9ca3">Between roles</span>
+        <span style="font-size:14px;color:#85878e">Press Next to see the next role.</span>
+      </div>`;
+  }
+
+  render(){
+    const {ph,sel,playing,hint,mobile,wide,short}=this.state;
+    const m=Math.min(ph,TOTAL-0.001), cat=catOf(sel);
+    const view=(c)=>{
+      const st=sel===c.id?'sel':under(c,m)?'live':'idle',h=c.id==='infisical'?HUE.oss:HUE[c.track];
+      const Lv=st==='sel'?0.55:st==='live'?0.4:0.3,C=st==='sel'?0.13:st==='live'?0.08:0.05;
+      return {id:c.id,short:c.short,sub:c.sub,title:c.title||(c.role+' · '+c.company),
+        left:(c.s/TOTAL*100)+'%',width:`calc(${(c.e-c.s)/TOTAL*100}% - 3px)`,bg:`oklch(${Lv} ${C} ${h})`,
+        ring:st==='sel'?'0 0 0 2px #f4f2ee, 0 6px 18px rgba(0,0,0,0.5)':`inset 0 0 0 1px oklch(${Lv+0.12} ${C+0.02} ${h})`,
+        ink:`oklch(0.97 0.02 ${h})`,ink2:`oklch(0.86 0.05 ${h})`};
+    };
+    const ticks=[];
+    for(let i=0;i<=TOTAL;i+=3){const yr=(5+i)%12===0;ticks.push({left:(i/TOTAL*100)+'%',h:yr?'10px':'4px',c:yr?'#4a4d54':'#2a2c31'});}
+    for(const i of [7,19,31,43])ticks.push({left:(i/TOTAL*100)+'%',h:'10px',c:'#4a4d54'});
+    const yearLabels=[{label:"Jun '22",left:'0%',tf:'none'},...[7,19,31,43].map(i=>({label:String(2023+(i-7)/12),left:(i/TOTAL*100)+'%',tf:'none'})),{label:'Now',left:'100%',tf:'translateX(-100%)'}];
+    const phLabel=ph>=TOTAL-0.3?'Now':mLabel(m);
+    const expH=short||mobile?'50px':'58px', projH=short||mobile?'32px':'38px';
+    const onDown=(e)=>{if(e.button>0)return;const hd=e.target.closest&&e.target.closest('[data-handle]');if(e.pointerType!=='mouse'&&!hd)return;this.drag={x:e.clientX,moved:false,id:e.pointerId,el:e.currentTarget};};
+    const onMove=(e)=>{const d=this.drag;if(!d)return;if(!d.moved&&Math.abs(e.clientX-d.x)>3){d.moved=true;this.pause();this.setState({hint:false});try{d.el.setPointerCapture(d.id);}catch(_){}}if(d.moved)this.setPh(this.xToM(e.clientX),'drag');};
+    const onUp=()=>{const d=this.drag;this.drag=null;if(d&&d.moved)this.suppress=true;};
+    const onTrackClick=(e)=>{if(this.suppress){this.suppress=false;return;}const el=e.target.closest&&e.target.closest('[data-clip]');if(el){this.select(el.getAttribute('data-clip'));return;}if(e.target.closest&&e.target.closest('[data-handle]'))return;this.pause();this.setState({hint:false});this.setPh(this.xToM(e.clientX),'drag');};
+    const playText=playing?'Pause':(ph>=TOTAL-0.05?'Replay tour':'Play tour');
+
+    const nav=html`
+      <nav aria-label="Sections" style="display:flex;align-items:center;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none;${wide?'':'padding:6px 12px;border-bottom:1px solid #222428;background:#111215'};${mobile?'mask-image:linear-gradient(90deg,#000 82%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent)':''}">
+        ${NAV.map(n=>{const on=cat===n.k;return html`<button key=${n.k} onClick=${()=>this.select(n.to)} aria-current=${on?'page':null} style="flex:none;height:34px;padding:0 13px;border:0;border-radius:999px;background:${on?'#26282c':'transparent'};color:${on?'#ffffff':'#9a9ca3'};font-size:13.5px;font-weight:${on?600:500};cursor:pointer;white-space:nowrap" style-hover="color:#ffffff">${n.label}</button>`;})}
+      </nav>`;
+
+    return html`<div style="height:100dvh;display:grid;grid-template-rows:${wide?'60px minmax(0,1fr) auto':'56px auto minmax(0,1fr) auto'};background:#0f1012;overflow:hidden">
+
+<header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 12px 0 16px;border-bottom:1px solid #222428;background:#121316;min-width:0">
+  <button onClick=${()=>this.select('intro')} style="display:flex;align-items:center;gap:10px;min-width:0;background:none;border:0;padding:0;color:inherit;cursor:pointer;text-align:left">
+    <span style="flex:none;width:32px;height:32px;border-radius:9px;background:${ACCENT};color:#1a0c09;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">SR</span>
+    <span style="display:flex;flex-direction:column;min-width:0">
+      <span style="font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Syed Mazhar Ali Raza</span>
+      <span style="font-size:12px;color:#9a9ca3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Frontend-heavy full-stack engineer · Bangalore</span>
+    </span>
+  </button>
+  ${wide?nav:null}
+  <div style="display:flex;align-items:center;gap:6px;flex:none">
+    ${mobile?null:html`<a href="https://github.com/syedmazharaliraza" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;height:34px;padding:0 13px;border:1px solid #2e3035;border-radius:999px;text-decoration:none;font-size:13px" style-hover="border-color:#4a4d54;background:#1d1f23">GitHub ↗</a>`}
+    ${mobile?null:html`<a href="mailto:mazharali.raza11@gmail.com" style="display:inline-flex;align-items:center;height:34px;padding:0 13px;border:1px solid #2e3035;border-radius:999px;text-decoration:none;font-size:13px" style-hover="border-color:#4a4d54;background:#1d1f23">Email</a>`}
+    <a href=${RESUME} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:${ACCENT};color:#1a0c09;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap" style-hover="background:oklch(0.78 0.16 30);color:#1a0c09">Resume ↗</a>
+  </div>
+</header>
+${wide?null:nav}
+
+<main ref=${this.stageRef} style="min-height:0;overflow-y:auto;overflow-x:hidden;container-type:inline-size;scrollbar-width:thin;scrollbar-color:#33363b transparent">
+  <div key=${sel} style="max-width:1180px;margin:0 auto;padding:clamp(18px,3cqi,36px) clamp(16px,4cqi,48px) clamp(24px,4cqi,48px);animation:mediaIn 0.35s cubic-bezier(.3,.7,.2,1) both">
+    ${this.renderStage()}
+  </div>
+</main>
+
+<section aria-label="Career timeline" style="min-width:0;background:#121316;border-top:1px solid #222428;display:flex;flex-direction:column">
+  <div style="flex:none;display:flex;align-items:center;gap:8px;min-height:50px;padding:6px 12px;flex-wrap:wrap">
+    <button onClick=${()=>this.togglePlay()} aria-label=${playing?'Pause the tour':'Play the career tour'} style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px 0 13px;background:${ACCENT};border:0;border-radius:999px;color:#1a0c09;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:oklch(0.78 0.16 30)"><span style="font-size:10px;width:10px;text-align:center">${playing?'❚❚':'▶'}</span>${playText}</button>
+    <button onClick=${()=>this.step(-1)} aria-label="Previous" title="Previous (←)" style="height:34px;width:34px;background:#1a1b1f;border:1px solid #2e3035;border-radius:999px;color:#ecebe8;font-size:15px;cursor:pointer" style-hover="background:#24262a">‹</button>
+    <button onClick=${()=>this.step(1)} aria-label="Next" title="Next (→)" style="height:34px;width:34px;background:#1a1b1f;border:1px solid #2e3035;border-radius:999px;color:#ecebe8;font-size:15px;cursor:pointer" style-hover="background:#24262a">›</button>
+    <span style="${MONO};font-size:14px;font-weight:500;color:oklch(0.82 0.12 30);padding:0 4px;min-width:8ch;white-space:nowrap">${phLabel}</span>
+    <span style="flex:1"></span>
+    ${mobile?null:html`<span style="font-size:12.5px;color:${hint?'oklch(0.85 0.08 30)':'#85878e'};white-space:nowrap">${hint?'Each bar is a role. Click one to open it, or press Play.':'Longer bar = longer time in the role'}</span>`}
+  </div>
+  <div style="display:flex;min-width:0">
+    ${mobile?null:html`
+      <div style="flex:none;width:112px;display:flex;flex-direction:column">
+        <div style="height:24px"></div>
+        <div style="height:${expH};padding:0 10px 0 16px;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:#c9cacd"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.66 0.11 250)"></span>Experience</div>
+        <div style="height:${projH};padding:0 10px 0 16px;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:#c9cacd"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.66 0.11 160)"></span>Projects</div>
+      </div>`}
+    <div ref=${this.scrollRef} style="flex:1;min-width:0;overflow-x:${mobile?'auto':'hidden'};overflow-y:hidden;scrollbar-width:none">
+      <div style="padding:0 ${mobile?'12px':'16px'} 8px ${mobile?'12px':'4px'};width:max-content;min-width:100%">
+        <div ref=${this.innerRef} onPointerDown=${onDown} onPointerMove=${onMove} onPointerUp=${onUp} onClick=${onTrackClick} style="position:relative;width:${mobile?(TOTAL*MPX)+'px':'100%'};user-select:none;touch-action:${mobile?'pan-x':'none'}">
+          <div style="position:relative;height:24px">
+            ${ticks.map((t,i)=>html`<div key=${i} style="position:absolute;bottom:0;left:${t.left};width:1px;height:${t.h};background:${t.c}"></div>`)}
+            ${yearLabels.map(y=>html`<div key=${y.label} style="position:absolute;top:4px;left:${y.left};transform:${y.tf};${MONO};font-size:10.5px;color:#7d8088;white-space:nowrap;padding:0 4px">${y.label}</div>`)}
+          </div>
+          <div style="position:relative;height:${expH}">
+            ${EXP.map(view).map(c=>html`
+              <div key=${c.id} data-clip=${c.id} title=${c.title} style="position:absolute;top:5px;bottom:5px;left:${c.left};width:${c.width};background:${c.bg};box-shadow:${c.ring};border-radius:8px;padding:5px 8px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:1px">
+                <span style="font-size:12.5px;line-height:1.25;font-weight:600;color:${c.ink};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.short}</span>
+                <span style="font-size:11px;line-height:1.25;color:${c.ink2};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.sub}</span>
+              </div>`)}
+          </div>
+          <div style="position:relative;height:${projH}">
+            ${[INFI,ORBIT].map(view).map(c=>html`
+              <div key=${c.id} data-clip=${c.id} title=${c.title} style="position:absolute;top:4px;bottom:4px;left:${c.left};width:${c.width};background:${c.bg};box-shadow:${c.ring};border-radius:8px;padding:0 8px;overflow:hidden;cursor:pointer;display:flex;align-items:center">
+                <span style="font-size:12px;font-weight:600;color:${c.ink};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.short}</span>
+              </div>`)}
+          </div>
+          <div style="position:absolute;top:0;bottom:0;left:${(ph/TOTAL*100)+'%'};width:0;pointer-events:none;z-index:3">
+            <div style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:${ACCENT}"></div>
+            <div data-handle="1" title="Drag to scrub through time" style="position:absolute;top:0;left:-13px;width:26px;height:22px;display:flex;justify-content:center;pointer-events:auto;cursor:ew-resize;touch-action:none">
+              <span style="margin-top:3px;width:12px;height:13px;background:${ACCENT};border-radius:3px 3px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,0.5)"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>`;
+  }
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App,{playSeconds:45}));
+})();
+</script>
+</body>
+</html>
